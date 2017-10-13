@@ -16,19 +16,17 @@ import java.util.Random;
 public class Tablero extends JPanel{
     
     private Objeto [][] matriz;
-    private int escala;
-    private int ancho;
-    private int alto;
+    private int escalax;
+    private int escalay;
     private int x;
     private int y;
     
-    public Tablero(int x, int y, int ancho, int alto){
+    public Tablero(int x, int y, int escalax, int escalay){
         matriz = new Objeto[x][y];
-        escala = 50;
+        this.escalax = escalax;
+        this.escalay = escalay;
         this.x = x;
         this.y = y;
-        this.ancho = ancho;
-        this.alto = alto;
         this.GenerarObstaculos();
         this.InsertarCoche(0, 0);
         this.InsertarLlegada(5, 5); 
@@ -38,16 +36,28 @@ public class Tablero extends JPanel{
         return matriz;
     }
     
-    public int GetEscala(){
-        return escala;
+    public int GetEscalaX(){
+        return escalax;
     }
     
-    public void SetEscala(int escala){
-        this.escala = escala;
+    public void SetEscalaX(int escalax){
+        this.escalax = escalax;
     }
     
-    public int Escalar(int num){
-        return num * escala;
+    public int GetEscalaY(){
+        return escalay;
+    }
+    
+    public void SetEscalaY(int escalay){
+        this.escalay = escalay;
+    }
+    
+    public int EscalarX(int num){
+        return num * escalax;
+    }
+    
+    public int EscalarY(int num){
+        return num * escalay;
     }
     
     private void InsertarObjeto(Objeto obj, int x, int y){
@@ -55,17 +65,17 @@ public class Tablero extends JPanel{
     }
     
     public void InsertarCoche(int x, int y){
-        Objeto coche = new Coche(Escalar(x),Escalar(y),escala,escala);
+        Objeto coche = new Coche(EscalarX(x),EscalarY(y),GetEscalaX(),GetEscalaY());
         InsertarObjeto(coche,x,y);
     }
     
     public void InsertarObstaculo(int x, int y){
-        Objeto coche = new Obstaculo(Escalar(x),Escalar(y),escala,escala);
+        Objeto coche = new Obstaculo(EscalarX(x),EscalarY(y),GetEscalaX(),GetEscalaY());
         InsertarObjeto(coche,x,y);
     }
     
     public void InsertarLlegada(int x, int y){
-        Objeto coche = new Llegada(Escalar(x),Escalar(y),escala,escala);
+        Objeto coche = new Llegada(EscalarX(x),EscalarY(y),GetEscalaX(),GetEscalaY());
         InsertarObjeto(coche,x,y);
     }
     
@@ -86,7 +96,6 @@ public class Tablero extends JPanel{
         for(int i = 0; i < matriz.length; i++){
             for(int j = 0; j < matriz[0].length; j++){
                 if(matriz[i][j] != null){
-                    //g.drawImage(matriz[i][j].GetImagen(), matriz[i][j].GetX(), matriz[i][j].GetY(), this);
                     g.drawImage(matriz[i][j].GetImagen(), matriz[i][j].GetX(), matriz[i][j].GetY(), matriz[i][j].GetAncho(), matriz[i][j].GetAlto(), this);
                 }
             }

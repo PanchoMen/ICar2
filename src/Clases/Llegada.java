@@ -7,19 +7,18 @@ package Clases;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Obstaculo extends Objeto {
-    
-    //Atributos de la clase
+public class Llegada  extends Objeto {
     
     //Constructor
-    public Obstaculo(int x, int y, int ancho, int alto) {
+    public Llegada(int x, int y, int ancho, int alto) {
         super(x, y, ancho, alto);
         SetImagen(GetDefault());
     }
     
     public Image GetDefault(){
-        ImageIcon obj = new ImageIcon(this.getClass().getResource("imagenes/piedra.png"));
+        ImageIcon obj = new ImageIcon(this.getClass().getResource("imagenes/parking.gif"));
         SetImagen(obj.getImage());
         return GetImagen();
     }
+    
 }

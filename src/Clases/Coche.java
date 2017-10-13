@@ -1,16 +1,25 @@
-package Clases;
-
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
  * @author Pancho
  */
-public class Coche {
+
+package Clases;
+
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
+public class Coche extends Objeto {
     
+    //Atributos de la clase
+    
+    //Constructor
+    public Coche(int x, int y, int ancho, int alto) {
+        super(x, y, ancho, alto);
+        SetImagen(GetDefault());
+    }
+    
+    public Image GetDefault(){
+        ImageIcon obj = new ImageIcon(this.getClass().getResource("imagenes/coche.gif"));
+        SetImagen(obj.getImage());
+        return GetImagen();
+    }
 }
