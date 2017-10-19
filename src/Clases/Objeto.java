@@ -13,14 +13,24 @@ public class Objeto {
     private int dx, dy;                 //Variables para determinar el movimiento del objeto
     private int ancho, alto;            //Determina el ancho y alto del objeto
     private Image imagen;               //Almacena la imagen correspondiente a cada objeto
+    private int id;
     
     //Constructor
-    public Objeto(int x, int y, int ancho, int alto){
+    public Objeto(int x, int y){
+        id = 0;
         this.x = x;
         this.y = y;
-        this.ancho = ancho;
-        this.alto = alto;
+        this.ancho = 40;
+        this.alto = 40;
         SetImagen(GetDefault());
+    }
+    
+    public int GetId(){
+        return id;
+    }
+    
+    public void SetId(int id){
+        this.id = id;
     }
     
     public int GetAncho(){ 

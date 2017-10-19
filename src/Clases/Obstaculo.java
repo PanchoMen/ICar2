@@ -12,8 +12,9 @@ public class Obstaculo extends Objeto {
     //Atributos de la clase
     
     //Constructor
-    public Obstaculo(int x, int y, int ancho, int alto) {
-        super(x, y, ancho, alto);
+    public Obstaculo(int x, int y) {
+        super(x, y);
+        SetId(3);
         SetImagen(GetDefault());
     }
     

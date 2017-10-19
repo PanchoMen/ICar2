@@ -6,9 +6,10 @@ package Entorno_Grafico;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.SwingUtilities;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class Configuracion extends javax.swing.JFrame {
+public class Configuracion extends JFrame {
 
     int filas;
     int columnas;
@@ -232,12 +233,16 @@ public class Configuracion extends javax.swing.JFrame {
         this.columnas = (Integer) jSpinner2.getValue();
         this.n_obstaculos = (Integer) jSpinner3.getValue();
         
-        config.setVisible(false);
-        
-        Toolkit t = Toolkit.getDefaultToolkit();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        juego = new Juego(filas,columnas,screenSize.width/filas,((screenSize.height -200)/columnas));
-        juego.changeSize(screenSize);
+        if(jRadioButton1.isSelected() || jRadioButton2.isSelected()){
+            config.dispose();
+
+            Toolkit t = Toolkit.getDefaultToolkit();
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            juego = new Juego(filas, columnas, manual, n_obstaculos);
+            juego.changeSize();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha selecionado el método de introdución de los obstaculos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -9,10 +9,14 @@ import javax.swing.ImageIcon;
 
 public class Llegada  extends Objeto {
     
+    private boolean insertado;
+    
     //Constructor
-    public Llegada(int x, int y, int ancho, int alto) {
-        super(x, y, ancho, alto);
+    public Llegada(int x, int y) {
+        super(x, y);
+        SetId(2);
         SetImagen(GetDefault());
+        insertado = false;
     }
     
     public Image GetDefault(){
@@ -21,4 +25,11 @@ public class Llegada  extends Objeto {
         return GetImagen();
     }
     
+    public boolean GetInsert(){
+        return insertado;
+    }
+    
+    public void SetInsert(boolean ins){
+        insertado = ins;
+    }
 }
