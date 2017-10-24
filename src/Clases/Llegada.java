@@ -12,8 +12,8 @@ public class Llegada  extends Objeto {
     private boolean insertado;
     
     //Constructor
-    public Llegada(int x, int y) {
-        super(x, y);
+    public Llegada(int x, int y, int escala) {
+        super(x, y, escala);
         SetId(2);
         SetImagen(GetDefault());
         insertado = false;

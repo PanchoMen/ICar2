@@ -13,8 +13,8 @@ public class Coche extends Objeto {
     private boolean insertado;
     
     //Constructor
-    public Coche(int x, int y) {
-        super(x, y);
+    public Coche(int x, int y, int escala) {
+        super(x, y, escala);
         SetId(1);
         SetImagen(GetDefault());
         insertado = false;

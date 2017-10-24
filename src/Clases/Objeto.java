@@ -16,12 +16,12 @@ public class Objeto {
     private int id;
     
     //Constructor
-    public Objeto(int x, int y){
+    public Objeto(int x, int y, int escala){
         id = 0;
         this.x = x;
         this.y = y;
-        this.ancho = 40;
-        this.alto = 40;
+        this.ancho = escala;
+        this.alto = escala;
         SetImagen(GetDefault());
     }
     

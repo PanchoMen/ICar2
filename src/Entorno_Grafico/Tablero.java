@@ -8,11 +8,8 @@ import Clases.Coche;
 import Clases.Objeto;
 import Clases.Obstaculo;
 import Clases.Llegada;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import java.util.Random;
 
@@ -23,20 +20,20 @@ public class Tablero extends JPanel{
     
     private Objeto [][] matriz;
     private int escala;
-    private int x;
-    private int y;
+    private int filas;
+    private int columnas;
     private boolean manual;
     private int n_obstaculos;
     
     public Tablero(int x, int y, int escala, boolean manual, int n_obstaculos){
         matriz = new Objeto[x][y];
         this.escala = escala;
-        this.x = x;
-        this.y = y;
+        this.filas = x;
+        this.columnas = y;
         this.manual = manual;
         this.n_obstaculos = n_obstaculos;
-        this.coche = new Coche(0,0);
-        this.llegada = new Llegada(0,0);
+        this.coche = new Coche(0, 0, escala);
+        this.llegada = new Llegada(0, 0, escala);
         
         //Si el modo seleccionado es aleatorio, se rellena el tablero con el número de obstaculos indicados
         if(!manual){
@@ -44,12 +41,20 @@ public class Tablero extends JPanel{
         }
     }
     
-    public Objeto GetMatriz(int x, int y){
+    public Objeto GetObjeto(int x, int y){
         return matriz[x][y];
     }
     
-    public void SetMatriz(int x, int y, Objeto obj){
+    public void SetObjeto(int x, int y, Objeto obj){
         matriz[x][y] = obj;
+    }
+    
+    public int GetColumnas(){
+        return columnas;
+    }
+    
+    public int GetFilas(){
+        return filas;
     }
     
     public Coche GetCoche(){
@@ -80,18 +85,18 @@ public class Tablero extends JPanel{
     }
     
     public void InsertarCoche(int x, int y){
-        coche = new Coche(x, y);
+        coche = new Coche(x, y, escala);
         InsertarObjeto(coche,x,y);
         coche.SetInsert(true);
     }
     
     public void InsertarObstaculo(int x, int y){
-        Obstaculo obstaculo = new Obstaculo(x, y);
+        Obstaculo obstaculo = new Obstaculo(x, y, escala);
         InsertarObjeto(obstaculo,x,y);
     }
     
     public void InsertarLlegada(int x, int y){
-        llegada = new Llegada(x, y);
+        llegada = new Llegada(x, y, escala);
         InsertarObjeto(llegada,x,y);
         llegada.SetInsert(true);
     }
@@ -99,8 +104,8 @@ public class Tablero extends JPanel{
     public void GenerarObstaculos(){
         Random  rnd = new Random();
         for(int i = 0; i < n_obstaculos; i++){
-            int x = rnd.nextInt(this.x);
-            int y = rnd.nextInt(this.y);
+            int x = rnd.nextInt(this.filas);
+            int y = rnd.nextInt(this.columnas);
             if(matriz[x][y] != null){
                 i--;
             }

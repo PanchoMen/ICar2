@@ -4,8 +4,6 @@
 
 package Entorno_Grafico;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,6 +21,7 @@ public class Configuracion extends JFrame {
      * Creates new form Configuracion
      */
     public Configuracion() {
+        setLocationRelativeTo(null);
         initComponents();
     }
     
@@ -56,9 +55,6 @@ public class Configuracion extends JFrame {
         buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -66,6 +62,7 @@ public class Configuracion extends JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSpinner3 = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ICar");
@@ -76,25 +73,6 @@ public class Configuracion extends JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Selecione el tamaño del tablero:");
-
-        jSpinner1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(10, 10, null, 1));
-        jSpinner1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jSpinner1FocusLost(evt);
-            }
-        });
-
-        jSpinner2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(10, 10, null, 1));
-        jSpinner2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jSpinner2FocusLost(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel3.setText("x");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setText("¿Cómo desea intoducir los obstaculos?");
@@ -122,13 +100,21 @@ public class Configuracion extends JFrame {
         jLabel5.setEnabled(false);
 
         jSpinner3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         jSpinner3.setEnabled(false);
 
         jButton1.setText("Continuar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10x10", "20x20", "30x30", "40x40", "50x50", "60x60", "70x70", "80x80", "90x90", "100x100" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -144,30 +130,28 @@ public class Configuracion extends JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel4)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel2)
-                        .addGap(24, 24, 24)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(243, 243, 243)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(217, 217, 217)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButton1)
+                                    .addComponent(jRadioButton2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 60, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
@@ -175,18 +159,17 @@ public class Configuracion extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)))
+                        .addGap(27, 27, 27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(19, 19, 19)))
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton1)
@@ -198,7 +181,7 @@ public class Configuracion extends JFrame {
                     .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,31 +202,25 @@ public class Configuracion extends JFrame {
            manual = false;
         }
     }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jSpinner1FocusLost(java.awt.event.FocusEvent evt) {                                    
-        this.filas = (Integer) jSpinner1.getValue();
-    }                                   
-
-    private void jSpinner2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSpinner2FocusLost
-        this.columnas = (Integer) jSpinner2.getValue();
-    }//GEN-LAST:event_jSpinner2FocusLost
-
+                                  
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.filas = (Integer) jSpinner1.getValue();
-        this.columnas = (Integer) jSpinner2.getValue();
+        this.filas = (Integer) (jComboBox1.getSelectedIndex() + 1) * 10;
+        this.columnas = filas;
         this.n_obstaculos = (Integer) jSpinner3.getValue();
         
         if(jRadioButton1.isSelected() || jRadioButton2.isSelected()){
-            config.dispose();
-
-            Toolkit t = Toolkit.getDefaultToolkit();
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            setVisible(false);
+            dispose();
+            
             juego = new Juego(filas, columnas, manual, n_obstaculos);
-            juego.changeSize();
         }else{
             JOptionPane.showMessageDialog(null, "No se ha selecionado el método de introdución de los obstaculos", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,15 +264,13 @@ public class Configuracion extends JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     // End of variables declaration//GEN-END:variables
 }
