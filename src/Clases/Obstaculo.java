@@ -19,7 +19,7 @@ public class Obstaculo extends Objeto {
     }
     
     public Image GetDefault(){
-        ImageIcon obj = new ImageIcon(this.getClass().getResource("imagenes/piedra.png"));
+        ImageIcon obj = new ImageIcon(this.getClass().getResource("imagenes/prohibido.png"));
         SetImagen(obj.getImage());
         return GetImagen();
     }

@@ -5,6 +5,11 @@
 package Algoritmo_Busqueda;
 
 import Entorno_Grafico.Tablero;
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 
 
 public class AEstrella {
@@ -14,6 +19,10 @@ public class AEstrella {
     private Lista list_close;
     private Lista list_final;
     private Tablero dashboard;
+    private int heuristica;
+    
+    private long time_start, time_end;
+    private int moves;
 
     private int origin_x; // Creamos los nodos de origen para desarrollar el primer paso del algoritmo.
     private int origin_y;  // Creamos los nodos de origen para desarrollar el primer paso del algoritmo.
@@ -24,22 +33,26 @@ public class AEstrella {
     private int value_g; // Variable para almacenar el valor g del nodo en el que estamos actualmente. 
 
 //-----> DECLARACIÓN DE LOS MÉTODOS DE LA CLASE.
-    public AEstrella(Tablero game_board) { // Constructor.
-
+    public AEstrella(Tablero game_board, int h) { // Constructor.
+        
+        time_start = 0; time_end = 0; moves = 0;
+        time_start = System.currentTimeMillis();
+        
         // Inicialización de las variables.
         list_open = new Lista();
         list_close = new Lista();
         list_final = new Lista();
         dashboard = game_board; // Inicializamos el atributo dashboard con nuestra matriz pasada por parámetro.
-
+        heuristica = h;         // Inicializamos el atributo heuristica con el valor de la heurística deseada, pasada por parámetro.
+        
         for (int i = 0; i < dashboard.GetFilas(); i++) {
             for (int j = 0; j < dashboard.GetColumnas(); j++) {
                 if (dashboard.GetObjeto(i, j) != null) {
-                    if (dashboard.GetObjeto(i, j).GetId() == 1) { // CONDICÍON: Si el valor de uno de los elementos de la matriz se corresponde con el spaceman.
+                    if (dashboard.GetObjeto(i, j).GetId() == 1) { // CONDICÍON: Si el valor de uno de los elementos de la matriz se corresponde con el coche.
                         origin_x = i; // Inicializamos la posición del origen_x como la fila del mismo.
                         origin_y = j; // Inicializamos la posición del origen_y como la columna del mismo.
                     }
-                    if (dashboard.GetObjeto(i, j).GetId() == 2) { // CONDICÍON: Si el valor de uno de los elementos de la matriz se corresponde con el ironmonger.
+                    if (dashboard.GetObjeto(i, j).GetId() == 2) { // CONDICÍON: Si el valor de uno de los elementos de la matriz se corresponde con la llegada.
                         destiny_x = i; // Inicializamos la posición del destino_x como la fila del mismo.
                         destiny_y = j; // Inicializamos la posición del destino_y como la columna del mismo.
                     }
@@ -51,13 +64,14 @@ public class AEstrella {
     }
 
     public void try_node(int i, int j, boolean direction, Nodo father) { // Método para ir comprobando los nodos, recibiendo las coordenadas y si el movimiento es diagonal.
+        moves++;
         if (fin == false) { // CONDICIÓN: Si no se ha llegado al final.
             if (dashboard.GetObjeto(i, j) != null) {
                 if (dashboard.GetObjeto(i, j).GetId() == 2) { // CONDICIÓN: Si el nodo es el destino, acabamos.
                     fin = true;
                     return;
                 }
-                if (dashboard.GetObjeto(i, j).GetId() == 3) { // CONDICIÓN: Si el nodo es un obstacle, lo ignoramos.
+                if (dashboard.GetObjeto(i, j).GetId() == 3) { // CONDICIÓN: Si el nodo es un obstaculo, lo ignoramos.
                     return;
                 }
             }
@@ -71,22 +85,9 @@ public class AEstrella {
             node.set_father(father); // Establecemos el nodo father (anterior) del nodo que estamos tratanto. Será el nodo pasado por parámetro inicialmente.
 
             //-----> CÁLCULO DE LA FUNCIÓN f = g + h.
-            // 1º CALCULAR LA H DE LA FUNCIÓN. Haremos uso de la Distancia Manhattan.
-            int i_manhattan = 0; // Variable local para almacenar la i manhattan. Inicializada en 0.
-            int j_manhattan = 0; // Variable local para almacenar la j manhattan. Inicializada en 0.
+            // 1º CALCULAR LA H DE LA FUNCIÓN. 
 
-            if (i > destiny_x) { // CONDICIÓN: Si la i pasada por parámetro es mayor que el destino.
-                i_manhattan = i - destiny_x;
-            } else {
-                i_manhattan = destiny_x - i;
-            }
-            if (j > destiny_y) { // CONDICIÓN: Si la j pasada por parámetro es mayor que el destino.
-                j_manhattan = j - destiny_y;
-            } else {
-                j_manhattan = destiny_y - j;
-            }
-
-            node.set_h((i_manhattan + j_manhattan) * 10); // Establecemos la h de la función en el nodo.
+            node.set_h(Heuristic(i,j)); // Establecemos la h de la función en el nodo.
 
             // 2º CALCULAR LA G DEL SUCESOR.
             if (direction == false) { // CONDICIÓN: Si la dirección pasada por parámetro es false (no es diagonal).
@@ -123,9 +124,39 @@ public class AEstrella {
             }
         }
     }
+    
+    public int Heuristic(int i, int j){
+        int distancia = 0;
+        if(heuristica == 1){
+            //Para la distancia Manhattan
+            int x = 0;
+            int y = 0;
+            if (i > destiny_x) { // CONDICIÓN: Si la i pasada por parámetro es mayor que el destino.
+                x = i - destiny_x;
+            } else {
+                x = destiny_x - i;
+            }
+            if (j > destiny_y) { // CONDICIÓN: Si la j pasada por parámetro es mayor que el destino.
+                y = j - destiny_y;
+            } else {
+                y = destiny_y - j;
+            }
+            distancia = (x+y);
+        }else if(heuristica == 2){
+            //Para la distancia Euclidea
+            double auxX = pow((destiny_x-i),2);
+            double auxY = pow((destiny_y-j),2);
+            distancia = (int) sqrt((auxX+auxY));
+        }else if(heuristica == 3){
+            double auxX = abs(i - destiny_x);
+            double auxY = abs(j - destiny_y);
+            distancia = (int) max(auxX, auxY);
+        }
+        return (distancia *10);
+    }
 
     public Lista beggining() { // Método que comienza a ejecutar el algoritmo.
-
+        
         Nodo origin = new Nodo(origin_x, origin_y, false);
         Nodo intermediate = null;
         list_open.insert(origin);
@@ -207,6 +238,8 @@ public class AEstrella {
             list_final.insert(intermediate);
             intermediate = intermediate.get_father();
         }
+        time_end = System.currentTimeMillis();
+            
         return list_final;
     }
 
@@ -241,5 +274,13 @@ public class AEstrella {
 
     public void setDestiny_y(int destiny_y) {
         this.destiny_y = destiny_y;
+    }
+    
+    public long getTime(){
+        return (time_end - time_start);
+    }
+    
+    public int getMovs(){
+        return moves;
     }
 }

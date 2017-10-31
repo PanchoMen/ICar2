@@ -22,7 +22,6 @@ public class Objeto {
         this.y = y;
         this.ancho = escala;
         this.alto = escala;
-        SetImagen(GetDefault());
     }
     
     public int GetId(){

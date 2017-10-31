@@ -21,7 +21,7 @@ public class Coche extends Objeto {
     }
     
     public Image GetDefault(){
-        ImageIcon obj = new ImageIcon(this.getClass().getResource("imagenes/coche.gif"));
+        ImageIcon obj = new ImageIcon(this.getClass().getResource("imagenes/coche.png"));
         SetImagen(obj.getImage());
         return GetImagen();
     }

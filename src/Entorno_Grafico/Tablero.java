@@ -4,10 +4,12 @@
 
 package Entorno_Grafico;
 
+import Clases.Camino;
 import Clases.Coche;
 import Clases.Objeto;
 import Clases.Obstaculo;
 import Clases.Llegada;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -34,6 +36,11 @@ public class Tablero extends JPanel{
         this.n_obstaculos = n_obstaculos;
         this.coche = new Coche(0, 0, escala);
         this.llegada = new Llegada(0, 0, escala);
+        
+        this.setLayout(null);
+        this.setBounds(0,0,Escalar(filas),Escalar(columnas));
+        this.setBackground(Color.RED);
+        this.setVisible(true);
         
         //Si el modo seleccionado es aleatorio, se rellena el tablero con el número de obstaculos indicados
         if(!manual){
@@ -99,6 +106,11 @@ public class Tablero extends JPanel{
         llegada = new Llegada(x, y, escala);
         InsertarObjeto(llegada,x,y);
         llegada.SetInsert(true);
+    }
+    
+    public void InsertarCamino(int x, int y, int color){
+        Camino camino = new Camino(x, y, escala, color);
+        InsertarObjeto(camino,x,y);
     }
     
     public void GenerarObstaculos(){
